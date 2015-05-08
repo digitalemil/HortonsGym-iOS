@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<HTML>
+   <HEAD>
+      <TITLE>
+         A Small Hello 
+      </TITLE>
+   </HEAD>
+<BODY bgcolor="#69be28">
+   <H1>Welcome to Horton's Gym!</H1>
+   <P>This is a tutorial and an example of an internet of things (IoT) and real-time streaming application. The typical architectue of such an application looks like this:</br>
+   <img src="architecture.png"/>
+   <br>
+   To make things more interesting we are going to use real data! This actually is the reason for this app: Your phone is the sensor we are going to use. The server-side will run on your Mac Book! For detailed instructions to set Hadoop up on your Mac please see the instructions on the bar called "More" below. So let's get started: The app is going to collect heart-rate, step and location data and will send it to the server side on your Mac. Here's an illustration:
+ <img src="iphone2_edited-1.png"/>
+ The data collected from the sensor (e.g. your phone) is send to the server via json over http. A stateless http-endpoint (Apache Tomcat in this case) collects the message and forwards it to an Apache Kafka broker from there a Apache Storm topology reads it, transforms and stores it. During this process the message also gets indexed by Apache Solr therefore we can search it and visualize it with Banana. That surely is very cool: We can store and process incoming data from an endless number of sensors. The backend being Hadoop-based will scale horizontally and we do not have a single component in our architecture which would block this.<br>
+ But we want to do even more! Let's add some machine learning (ml) to the picture. To be clear this will be only a kind of "Hello World" of ml. What we want to have is a (very) simple model which tells us in real-time that our heart-rate is too high. For this excersise get some of your collected data from HDFS on your Mac (hadoop fs -get /user/guest/hdpdemostudio/hr/...) and examine the data. We are going to use only some of the columns for this id and heart-rate. A good exercise would be to use Apache pig to load and transform the data until you have something like this:<br>
+ <font face="courier">
+    <br>HR, id<br>
+    102, Me<br>
+	120, Someoneelse<br>
+    160, Me<br>
+    165, Me<br>
+    ...<br><br>
+
+    </font>
+    In our case we want our model to be a simple decision tree which falls into the category of supervised learning. So let's supervise the data. When the heart-rate seems to high we want our widget showing the heart-rate to turn read otherwise it should be green:<br>
+    <font face="courier">
+<br>WidgetColor HR	User<br>
+    0x00FF00 	102	Me<br>
+    0x00FF00 	120	Someoneelse<br>
+    0xFF0000 	160	Me<br>
+    0xFF0000 	165	Me<br>
+    ...<br>
+    <br>
+    </font>
+    If you have a lot of data an Apache Pig script or a map/reduce job is a good way to do this. This indeed is a typical use-case of Hadoop in ml: You use Hadoop to collect, clean and transform the data. The model itself quite often is created outside of Hadoop but then finally again deployed into Hadoop.<br>
+    But back to our data. Bring up R or SAS Miner or what have you. We are going use R here but it really does not matter as long as it can export PMML (Predictive Model Markup Language).
+    Run the follwing R program and it will create your model based on your supoervised data:<br>
+    <font face="courier">
+<br>library(rpart)<br>
+    install.packages("pmml")<br>
+    require(pmml)<br>
+    hrdata= read.table(file.choose(), header=TRUE, sep="\t")<br>
+    <br>
+    model <- rpart(WidgetColor ~ HR, data=hrdata)<br>
+        saveXML(pmml(model, model.name = "Model",<br>
+        app.name = "R/PMML", dataset = hrdata), file = "hrmodel.pmml")<br><br>
+
+        </font>
+        The Storm topology deployed within Horton's Gym has a PMML-Bolt built-in and will evaluate your model every time a message is received.<br>
+        Now that's pretty awesome, isn't it? We can collect sensor data and anaylse it in real-time which opens vast possibilties for pre-active maintenance of field equipment, intelligent connected cars and many many more interesting use-case.<br>
+        Have fun experimenting with this!<br>
+        <br>
+        By the way this is all open source: I'm using HDP from Hortonworks and you can find the other parts on GitHub:
+        <br>
+        
+        
+
+
+    
+
+ 
+ 
+ 
+</p>
+
+
+  </BODY>
+</HTML>
