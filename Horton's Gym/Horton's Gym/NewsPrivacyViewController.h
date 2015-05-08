@@ -14,6 +14,7 @@
 
 - (void)news;
 - (void)privacy;
+- (void)installation;
 
 
 @end

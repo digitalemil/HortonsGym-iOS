@@ -27,6 +27,15 @@ NewsPrivacyViewController *npc;
     [self.webview loadRequest:requestObj];
 }
 
+- (void)installation{
+    [self.navbar setTitle:@"Installation on Mac"];
+    NSURL *url = [NSURL URLWithString:@"http://digitalemil.de/hortonsgym/"];
+    
+    //URL Requst Object
+    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+    [self.webview loadRequest:requestObj];
+}
+
 - (void)privacy{
     [self.navbar setTitle:@"Privacy Policy"];
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"web/privacy.html" ofType:nil];

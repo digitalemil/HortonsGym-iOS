@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Tutiorial-->
+        <!--Tutorial-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
                 <viewController id="9pv-A4-QxB" customClass="FirstViewController" sceneMemberID="viewController">
@@ -66,7 +66,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="1" title="Tutiorial" image="elefant75@3x.png" id="acW-dT-cKf" userLabel="First"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="Tutorial" image="elefant75@3x.png" id="acW-dT-cKf" userLabel="First"/>
                     <connections>
                         <outlet property="webview" destination="IKN-mK-gA6" id="PL4-El-sf2"/>
                     </connections>
@@ -130,7 +130,7 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehq-HH-F1i">
                                 <rect key="frame" x="501" y="486" width="46" height="30"/>
-                                <state key="normal" title="200 Years">
+                                <state key="normal" title="200">
                                     <color key="titleColor" red="0.41176470590000003" green="0.74509803919999995" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -170,6 +170,7 @@
                             <constraint firstItem="6ko-Oq-SgE" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="128" id="XJ3-Ic-ZHe"/>
                             <constraint firstAttribute="centerX" secondItem="rjz-RW-GG8" secondAttribute="centerX" id="fbj-Uq-bRk"/>
                             <constraint firstAttribute="centerX" secondItem="tdp-bq-u6w" secondAttribute="centerX" id="mW6-gx-aM1"/>
+                            <constraint firstItem="hbA-Mz-2hl" firstAttribute="top" secondItem="3h6-c4-jsW" secondAttribute="bottom" constant="8" symbolic="YES" id="rbM-pH-pOV"/>
                             <constraint firstItem="ehq-HH-F1i" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="8" symbolic="YES" id="sDd-RU-34M"/>
                             <constraint firstItem="3h6-c4-jsW" firstAttribute="leading" secondItem="rjz-RW-GG8" secondAttribute="trailing" constant="8" symbolic="YES" id="tzj-dA-SsN"/>
                             <constraint firstItem="hbA-Mz-2hl" firstAttribute="top" secondItem="rGM-KO-pkc" secondAttribute="bottom" constant="128" id="vyk-BA-49I"/>
@@ -179,6 +180,7 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="XJ3-Ic-ZHe"/>
+                                <exclude reference="vyk-BA-49I"/>
                                 <exclude reference="yvp-4f-RpI"/>
                                 <exclude reference="HAQ-Ph-lpR"/>
                             </mask>
@@ -223,6 +225,10 @@
                                 <state key="normal" title="Installation Instructions for Mac OS">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="installationAction:" destination="JT8-aj-Zpw" eventType="touchUpInside" id="n2E-wx-3UW"/>
+                                    <segue destination="sjh-co-q3h" kind="presentation" id="GA3-UY-S4p"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WkE-8T-KVi">
                                 <rect key="frame" x="252" y="376" width="96" height="30"/>

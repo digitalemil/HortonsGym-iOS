@@ -10,7 +10,8 @@
    <P>This is a tutorial and an example of an internet of things (IoT) and real-time streaming application. The typical architectue of such an application looks like this:</br>
    <img src="architecture.png"/>
    <br>
-   To make things more interesting we are going to use real data! This actually is the reason for this app: Your phone is the sensor we are going to use. The server-side will run on your Mac Book! For detailed instructions to set Hadoop up on your Mac please see the instructions on the bar called "More" below. So let's get started: The app is going to collect heart-rate, step and location data and will send it to the server side on your Mac. Here's an illustration:
+   To make things more interesting we are going to use real data! This actually is the reason for this app: Your phone is the sensor we are going to use. The server-side will run on your Mac Book! For detailed instructions to set Hadoop up on your Mac please see the instructions on the bar called "More" below. Don't be worried your data is not going to end up anywhere you do not want it to be. The application will only send the data to a server you specify on the bar labeled "Hadoop". Here you point the app to the Hadoop installation on your Mac like: "http://127.0.0.1:8181". For more details on privacy please check-out the bar labeled "More".<br>
+   So let's get started: The app is going to collect heart-rate, step and location data and will send it to the server side on your Mac. Here's an illustration:
  <img src="iphone2_edited-1.png"/>
  The data collected from the sensor (e.g. your phone) is send to the server via json over http. A stateless http-endpoint (Apache Tomcat in this case) collects the message and forwards it to an Apache Kafka broker from there a Apache Storm topology reads it, transforms and stores it. During this process the message also gets indexed by Apache Solr therefore we can search it and visualize it with Banana. That surely is very cool: We can store and process incoming data from an endless number of sensors. The backend being Hadoop-based will scale horizontally and we do not have a single component in our architecture which would block this.<br>
  But we want to do even more! Let's add some machine learning (ml) to the picture. To be clear this will be only a kind of "Hello World" of ml. What we want to have is a (very) simple model which tells us in real-time that our heart-rate is too high. For this excersise get some of your collected data from HDFS on your Mac (hadoop fs -get /user/guest/hdpdemostudio/hr/...) and examine the data. We are going to use only some of the columns for this id and heart-rate. A good exercise would be to use Apache pig to load and transform the data until you have something like this:<br>
@@ -49,11 +50,15 @@
         </font>
         The Storm topology deployed within Horton's Gym has a PMML-Bolt built-in and will evaluate your model every time a message is received.<br>
         Now that's pretty awesome, isn't it? We can collect sensor data and anaylse it in real-time which opens vast possibilties for pre-active maintenance of field equipment, intelligent connected cars and many many more interesting use-case.<br>
-        Have fun experimenting with this!<br>
+        Have fun experimenting with this! For details on how to upload your model look at the tutorial for your Mac.<br>
         <br>
-        By the way this is all open source: I'm using HDP from Hortonworks and you can find the other parts on GitHub:
+        By the way this is all 100% open source: I'm using HDP from Hortonworks and you can find the other parts on GitHub:
         <br>
-        
+        https://github.com/digitalemil/HDPDemoStudio.git<br>
+        https://github.com/digitalemil/HortonsGym.git<br>
+        https://github.com/digitalemil/HortonsGym-iOS.git<br>
+        <br>
+        Happy hacking!
         
 
 

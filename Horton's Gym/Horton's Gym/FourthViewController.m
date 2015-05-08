@@ -36,6 +36,12 @@ extern NewsPrivacyViewController *npc;
         [npc news];
     if(button==2)
         [npc privacy];
+    if(button==3)
+        [npc installation];
+}
+
+- (IBAction)installationAction:(id)sender {
+    button= 3;
 }
 
 - (void)didReceiveMemoryWarning {

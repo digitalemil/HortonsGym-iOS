@@ -88,11 +88,13 @@ int alerttype= 0;
 - (IBAction)serverShouldReturn:(id)sender {
     [self.server resignFirstResponder];
     serverstr= [self.server text];
+     userstr= [self.user text];
 }
 
 - (IBAction)userShouldReturn:(id)sender {
     [self.user resignFirstResponder];
     userstr= [self.user text];
+    [self.server resignFirstResponder];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
